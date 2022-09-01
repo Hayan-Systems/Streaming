@@ -15,7 +15,7 @@ function sendFile(file, chunkNumber) {
   formData.append("name", STREAM_NAME);
   formData.append("chunk", chunkNumber);
 
-  fetch("/api/upload", {
+  fetch("http://localhost:3000/upload", {
     method: "PUT",
     body: formData,
   });
@@ -41,7 +41,9 @@ function registerPlayer(mediaSource) {
   let countDownloadChunk = 0;
 
   setInterval(() => {
-    fetch(`/api/download?name=${STREAM_NAME}&chunk=${countDownloadChunk}`)
+    fetch(
+      `http://localhost:3000/download?name=${STREAM_NAME}&chunk=${countDownloadChunk}`
+    )
       .then((response) => {
         if (response.status !== 200) {
           throw Error("no such file");
