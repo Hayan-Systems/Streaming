@@ -2,22 +2,28 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const express = require("express");
 const fileUpload = require("express-fileupload");
+var cors = require("cors");
 
 const app = express();
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(
+  cors({
+    origin: "http://localhost:1337",
+  })
+);
+app.use(
   fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp/",
+    tempFileDir: "./tmp/",
   })
 );
 
-const hostname = "0.0.0.0";
+// const hostname = "localhost";
 const port = 3000;
 
 const makeDirnameFilename = (name, chunk) => {
-  const dirname = `/app/uploads/${name}`;
+  const dirname = `./uploads/${name}`;
   const filename = `${dirname}/${chunk}.webm`;
   return [dirname, filename];
 };
@@ -53,6 +59,6 @@ app.get("/download", (req, res) => {
     });
 });
 
-app.listen(port, hostname, () => {
-  console.log("Starting development server");
-});
+app.listen(port, () =>
+  console.log(`Hello world app listening on port ${port}!`)
+);
