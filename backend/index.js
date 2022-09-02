@@ -53,7 +53,8 @@ app.get("/download", (req, res) => {
       res.write(file, "binary");
       res.end();
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.statusCode = 204;
       res.end();
     });
