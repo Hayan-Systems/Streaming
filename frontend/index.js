@@ -55,7 +55,7 @@ function registerPlayer(mediaSource) {
         videoBuffer.appendBuffer(buffer);
       })
       .catch(() => {});
-  }, 1000);
+  }, 2000);
 }
 
 function processStream(stream, mediaSource) {
